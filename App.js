@@ -16,7 +16,7 @@ export default class App extends Component {
       valueIndex: null
     }
   }
-  add =()=>{
+  addTask =()=>{
     const prevState = this.state.dummy;
     const textInputValue = {task :this.state.valueInput, done: false};
     let array = [...prevState,textInputValue];
@@ -25,7 +25,7 @@ export default class App extends Component {
     })
   }
 
-  del=(item)=>{
+  deleteTask=(item)=>{
     const prevState = this.state.dummy;
     const array = prevState.filter(dummy =>{
       return dummy != item
@@ -35,7 +35,7 @@ export default class App extends Component {
     })
   }
 
-  check=(index)=>{
+  handleCheckBox=(index)=>{
     let state =this.state.dummy;
     state[index].done = !state[index].done;
    this.setState({
@@ -44,7 +44,7 @@ export default class App extends Component {
 
   }
 
-  handleUpdate=(index)=>{
+  changeButton=(index)=>{
     this.setState({
       isUpdate:true,
       valueInput : this.state.dummy[index].task,
@@ -53,7 +53,7 @@ export default class App extends Component {
     })
   }
 
-  update =()=>{
+  updateTask =()=>{
     let state = this.state.dummy;
     const index = this.state.valueIndex;
     state[index].task = this.state.valueInput
