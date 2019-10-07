@@ -5,7 +5,7 @@ export default class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      taskList : ['swim','study','sleep','run'],
+      dummy : ['swim','study','sleep','run'],
       valueInput : ''
     };
   }
@@ -14,7 +14,7 @@ export default class App extends PureComponent {
     const prevState = this.state.dummy
     const arrayItem = [...prevState,this.state.valueInput] 
     this.setState({
-      taskList : [...arrayItem]
+      dummy : [...arrayItem]
     })
   }
 
