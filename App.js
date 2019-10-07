@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import {  View, Text,StyleSheet,TextInput,TouchableOpacity } from 'react-native';
+import {Icon} from 'native-base';
 
 export default class App extends PureComponent {
   constructor(props) {
@@ -15,6 +16,16 @@ export default class App extends PureComponent {
     const arrayItem = [...prevState,this.state.valueInput] 
     this.setState({
       dummy : [...arrayItem]
+    })
+  }
+
+  del=(item)=>{
+    const prevState = this.state.dummy;
+    const array = prevState.filter(dummy =>{
+      return dummy != item
+    })
+    this.setState({
+      dummy:[...array]
     })
   }
 
@@ -37,8 +48,10 @@ export default class App extends PureComponent {
         <View style={styles.text}>
           {this.state.dummy.map((item,index)=>{
             return(
-              <View key={index}>
-                <Text>{item}</Text>
+              <View key={index} style={{flexDirection:"row"}}>
+                <Text style={styles.text}>{item}</Text>
+                <Icon name='trash' style={styles.buttonDel}
+                  onPress={() => this.del(item)}></Icon>
               </View>
               )
             }
@@ -65,6 +78,12 @@ const styles = StyleSheet.create({
   text:{
     padding:10,
     width : 200
+  },
+  buttonDel:{
+    color :'white',
+    marginBottom : 10,
+    padding: 10,
+    backgroundColor :'red'
   },
   
 });
