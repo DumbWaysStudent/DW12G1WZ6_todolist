@@ -14,7 +14,7 @@ export default class App extends PureComponent {
     const prevState = this.state.dummy
     const arrayItem = [...prevState,this.state.valueInput] 
     this.setState({
-      dummy : [...arrayItem]
+      taskList : [...arrayItem]
     })
   }
 
