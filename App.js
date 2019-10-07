@@ -1,12 +1,17 @@
 import React, { PureComponent } from 'react';
-import {  View, Text,StyleSheet,TextInput,TouchableOpacity } from 'react-native';
+import {  View, Text,StyleSheet,TextInput,TouchableOpacity,CheckBox } from 'react-native';
 import {Icon} from 'native-base';
 
 export default class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      dummy : ['swim','study','sleep','run'],
+      dummy : [
+        {task:'work', done :false},
+        {task :'swim', done :false},
+        {task : 'study', done : false},
+        {task :'sleep', done : false},
+        {task : 'run', done : false} ],
       valueInput : ''
     };
   }
@@ -19,14 +24,23 @@ export default class App extends PureComponent {
     })
   }
 
-  del=(item)=>{
+  del=(itemnya)=>{
     const prevState = this.state.dummy;
     const array = prevState.filter(dummy =>{
-      return dummy != item
+      return dummy != itemnya
     })
     this.setState({
       dummy:[...array]
     })
+  }
+
+  check=(index)=>{
+    let state =this.state.dummy;
+    state[index].done = !state[index].done;
+   this.setState({
+    dummy:[...state]
+   })
+
   }
 
   render() {
@@ -49,7 +63,13 @@ export default class App extends PureComponent {
           {this.state.dummy.map((item,index)=>{
             return(
               <View key={index} style={{flexDirection:"row"}}>
-                <Text style={styles.text}>{item}</Text>
+                <CheckBox
+                value= {item.done}
+                onChange = {()=>this.check(index)}>
+                </CheckBox>
+
+                <Text style={styles.text}>{item.task}</Text>
+               
                 <Icon name='trash' style={styles.buttonDel}
                   onPress={() => this.del(item)}></Icon>
               </View>
