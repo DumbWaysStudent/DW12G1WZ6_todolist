@@ -40,7 +40,7 @@ export default class App extends PureComponent {
             onChangeText={input => this.setState({valueInput : input})}
           />
            <TouchableOpacity style={styles.button}
-            onPress={this.add }>
+            onPress={this.addTask }>
             <Text style={styles.textButton}>Add</Text>
             </TouchableOpacity>
         </View>
@@ -51,7 +51,7 @@ export default class App extends PureComponent {
               <View key={index} style={{flexDirection:"row"}}>
                 <Text style={styles.text}>{item}</Text>
                 <Icon name='trash' style={styles.buttonDel}
-                  onPress={() => this.del(item)}></Icon>
+                  onPress={() => this.deleteTask(item)}></Icon>
               </View>
               )
             }
