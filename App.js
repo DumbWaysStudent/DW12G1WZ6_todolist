@@ -29,7 +29,7 @@ export default class App extends PureComponent {
             onChangeText={input => this.setState({valueInput : input})}
           />
            <TouchableOpacity style={styles.button}
-            onPress={this.add }>
+            onPress={this.addTask }>
             <Text style={styles.textButton}>Add</Text>
             </TouchableOpacity>
         </View>
