@@ -80,11 +80,11 @@ export default class App extends Component {
            
             {!this.state.isUpdate ?
             <TouchableOpacity style={styles.button} 
-            onPress={this.add }>
+            onPress={this.addTask }>
             <Text style={styles.textButton}>Add</Text>
             </TouchableOpacity> :
             <TouchableOpacity style={styles.button}
-            onPress={this.update }>
+            onPress={this.updateTask }>
             <Text style={styles.textButton}>Update</Text>
             </TouchableOpacity>
              }
@@ -99,7 +99,7 @@ export default class App extends Component {
 
                 <CheckBox
                 value= {item.done}
-                onChange = {()=>this.check(index)}>
+                onChange = {()=>this.handleCheckbox(index)}>
                 </CheckBox>
 
                 <Text style={styles.text}>
@@ -107,11 +107,11 @@ export default class App extends Component {
                 </Text>
 
                 <Icon name='trash' style={styles.buttonDel}
-                  onPress={() => this.del(item)}>
+                  onPress={() => this.deleteTask(item)}>
                   
                 </Icon>
                 <Icon name='create' style={styles.buttonUpdate}
-                  onPress={() => this.handleUpdate(index)}>
+                  onPress={() => this.changeButton(index)}>
                 </Icon>
 
               </View>
