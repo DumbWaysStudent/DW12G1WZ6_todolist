@@ -1,9 +1,8 @@
-import React, { PureComponent } from 'react';
-import {  View, Text,StyleSheet,TextInput,TouchableOpacity,CheckBox } from 'react-native';
+import React, { Component } from 'react';
+import { View,Text,TextInput,StyleSheet ,TouchableOpacity,CheckBox} from 'react-native';
 import {Icon} from 'native-base';
-
-export default class App extends PureComponent {
-  constructor(props) {
+export default class App extends Component {
+  constructor(props){
     super(props);
     this.state = {
       dummy : [
@@ -12,22 +11,24 @@ export default class App extends PureComponent {
         {task : 'study', done : false},
         {task :'sleep', done : false},
         {task : 'run', done : false} ],
-      valueInput : ''
-    };
+      isUpdate : false,
+      valueInput : '',
+      valueIndex: null
+    }
   }
-
-  add=()=>{
-    const prevState = this.state.dummy
-    const arrayItem = [...prevState,this.state.valueInput] 
+  add =()=>{
+    const prevState = this.state.dummy;
+    const textInputValue = {task :this.state.valueInput, done: false};
+    let array = [...prevState,textInputValue];
     this.setState({
-      dummy : [...arrayItem]
+      dummy:[...array]
     })
   }
 
-  del=(itemnya)=>{
+  del=(item)=>{
     const prevState = this.state.dummy;
     const array = prevState.filter(dummy =>{
-      return dummy != itemnya
+      return dummy != item
     })
     this.setState({
       dummy:[...array]
@@ -43,46 +44,85 @@ export default class App extends PureComponent {
 
   }
 
+  handleUpdate=(index)=>{
+    this.setState({
+      isUpdate:true,
+      valueInput : this.state.dummy[index].task,
+      valueIndex : index
+      
+    })
+  }
+
+  update =()=>{
+    let state = this.state.dummy;
+    const index = this.state.valueIndex;
+    state[index].task = this.state.valueInput
+    this.setState({
+      dummy: [...state],
+      isUpdate : false,
+      valueIndex : null,
+      valueInput : null
+    })
+    
+  }
+  
   render() {
     return (
+    
       <View>
-         <View style={{flexDirection:"row"}}>
-          <TextInput
-            style={styles.input}
-            placeholder ='Masukan data'
-            value = {this.state.valueInput}
-            onChangeText={input => this.setState({valueInput : input})}
-          />
-           <TouchableOpacity style={styles.button}
+        <View style={{flexDirection:"row"}}>
+        <TextInput
+        style={styles.input}
+        placeholder ='Masukan data'
+        value = {this.state.valueInput}
+        onChangeText={input => this.setState({valueInput : input})}
+        />
+           
+            {!this.state.isUpdate ?
+            <TouchableOpacity style={styles.button} 
             onPress={this.add }>
             <Text style={styles.textButton}>Add</Text>
+            </TouchableOpacity> :
+            <TouchableOpacity style={styles.button}
+            onPress={this.update }>
+            <Text style={styles.textButton}>Update</Text>
             </TouchableOpacity>
+             }
+         
+
         </View>
 
         <View style={styles.text}>
           {this.state.dummy.map((item,index)=>{
-            return(
-              <View key={index} style={{flexDirection:"row"}}>
+            return (
+              <View key={index}style={{flexDirection:"row"}}>
+
                 <CheckBox
                 value= {item.done}
                 onChange = {()=>this.check(index)}>
                 </CheckBox>
 
-                <Text style={styles.text}>{item.task}</Text>
-               
-                <Icon name='trash' style={styles.buttonDel}
-                  onPress={() => this.del(item)}></Icon>
-              </View>
-              )
-            }
-          )}
-        </View>
+                <Text style={styles.text}>
+                  {item.task}
+                </Text>
 
+                <Icon name='trash' style={styles.buttonDel}
+                  onPress={() => this.del(item)}>
+                  
+                </Icon>
+                <Icon name='create' style={styles.buttonUpdate}
+                  onPress={() => this.handleUpdate(index)}>
+                </Icon>
+
+              </View>
+            )
+          })}
+        </View>
       </View>
-   
+    
     );
   }
-}
+};
 const styles = StyleSheet.create({
   button:{
     padding: 10,
@@ -95,6 +135,9 @@ const styles = StyleSheet.create({
     margin :10,
     borderColor: 'gray', borderWidth: 1
   },
+  textButton:{
+    color :'white'
+  },
   text:{
     padding:10,
     width : 200
@@ -105,5 +148,11 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor :'red'
   },
-  
+  buttonUpdate:{
+    color :'white',
+    marginLeft : 5,
+    marginBottom : 10,
+    padding: 10,
+    backgroundColor :'orange'
+  }
 });
