@@ -6,26 +6,26 @@ export default class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      dummy : ['swim','study','sleep','run'],
+      listTask : ['swim','study','sleep','run'],
       valueInput : ''
     };
   }
 
-  add=()=>{
+  addTask=()=>{
     const prevState = this.state.dummy
     const arrayItem = [...prevState,this.state.valueInput] 
     this.setState({
-      dummy : [...arrayItem]
+      listTask : [...arrayItem]
     })
   }
 
-  del=(item)=>{
+  deleteTask=(item)=>{
     const prevState = this.state.dummy;
     const array = prevState.filter(dummy =>{
       return dummy != item
     })
     this.setState({
-      dummy:[...array]
+      listTask:[...array]
     })
   }
 
