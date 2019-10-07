@@ -16,7 +16,7 @@ export default class App extends PureComponent {
     };
   }
 
-  add=()=>{
+  addTask=()=>{
     const prevState = this.state.dummy
     const arrayItem = [...prevState,this.state.valueInput] 
     this.setState({
@@ -24,7 +24,7 @@ export default class App extends PureComponent {
     })
   }
 
-  del=(itemnya)=>{
+  deleteTask=(itemnya)=>{
     const prevState = this.state.dummy;
     const array = prevState.filter(dummy =>{
       return dummy != itemnya
@@ -34,7 +34,7 @@ export default class App extends PureComponent {
     })
   }
 
-  check=(index)=>{
+  handleCheckbox=(index)=>{
     let state =this.state.dummy;
     state[index].done = !state[index].done;
    this.setState({
